@@ -36,14 +36,10 @@ namespace WoonyExcelCore
             {
                 return SetValueList(cellInfo, row, newItem, field, typeof(string));
             }
-            else if (type == typeof(List<PassiveType>))
-            {
-                return SetValueList(cellInfo, row, newItem, field, typeof(PassiveType));
-            }
-            else if (type == typeof(List<GoodsType>))
-            {
-                return SetValueList(cellInfo, row, newItem, field, typeof(GoodsType));
-            }
+            //else if (type == typeof(List<PassiveType>))
+            //{
+            //    return SetValueList(cellInfo, row, newItem, field, typeof(PassiveType));
+            //} 
 
             return false;
         }
@@ -82,10 +78,8 @@ namespace WoonyExcelCore
                     tmpDataMap[index] = (long)row.GetCell(cellInfo[key]).NumericCellValue;
                 else if (cellDataType == typeof(string))
                     tmpDataMap[index] = row.GetCell(cellInfo[key]).ToString();
-                else if (cellDataType == typeof(PassiveType))
-                    tmpDataMap[index] = Enum.Parse(cellDataType, row.GetCell(cellInfo[key]).StringCellValue, true);
-                else if (cellDataType == typeof(GoodsType))
-                    tmpDataMap[index] = Enum.Parse(cellDataType, row.GetCell(cellInfo[key]).StringCellValue, true);
+                //else if (cellDataType == typeof(PassiveType))
+                //    tmpDataMap[index] = Enum.Parse(cellDataType, row.GetCell(cellInfo[key]).StringCellValue, true); 
 
                 // 복원용 데이터 저장
                 removedCellInfo[key] = cellInfo[key];

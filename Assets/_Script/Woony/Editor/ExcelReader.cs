@@ -3,11 +3,10 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 using Newtonsoft.Json;
-using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Plastic.Newtonsoft.Json;
 
 public class ExcelReader : EditorWindow
 {
@@ -18,33 +17,8 @@ public class ExcelReader : EditorWindow
     private static ExcelReader excelReader;
     private static Action readAllExcel;
 
-    private static SceneInfoSO _sceneInfoSO;
-    private static StageInfoSO _stageInfoSO;
-    private static EnemyPoolInfoSO _enemyPoolInfoSO;
-    private static EnemyDropPoolInfoSO _enemyDropPoolInfoSO;
-    private static SpawnInfoSO _spawnInfoSO;
-    private static EnemyStatusInfoSO _enemyStatusInfoSO;
-    private static EnemyAbilityInfoSO _enemyAbilityInfoSO;
-    private static ItemInfoSO _itemInfoSO;
-    private static TeamLevelInfoSO _teamLevelInfoSO;
-    private static PlayerStatusInfoSO _playerStatusInfoSO;
-    private static PlayerAbilityInfoSO _playerAbilityInfoSO;
-    private static PlayerCardGradeInfoSO _playerCardGradeInfoSO;
-    private static PlayerCardLevelInfoSO _playerLevelInfoSO;
-    private static PlayerCardOptionPoolInfoSO _playerCardOptionPoolInfoSO;
-    private static PlayerCardOptionInfoSO _playerCardOptionInfoSO;
-    private static PassiveInfoSO _passiveInfoSO;
-    private static PassiveAbilityInfoSO _passiveAbilityInfoSO;
-    private static ShopInfoSO _shopInfoSO;
-    private static GachaInfoSO _gachaInfoSO;
-    private static GachaPoolInfoSO _gachaPoolInfoSO;
-    private static TextInfoSO _textInfoSO;
-    private static EtcInfoSO _etcInfoSO;
-    private static NewContentInfoSO _newContentInfoSO;
-    private static EvolutionInfoSO _evolutionInfoSO;
-    private static DisposableReinforceItemPoolInfoSO _disposableReinforceItemPoolInfoSO;
-    private static PlayerPieceInfoSO _playerPieceInfoSO;
-    private static StageChestInfoSO _stageChestInfoSO;
+    //private static SceneInfoSO _sceneInfoSO;
+    //private static StageInfoSO _stageInfoSO; 
 
     [MenuItem("WoonyEditor/ExcelReader", priority = 0)]
     private static void Init()
@@ -57,33 +31,8 @@ public class ExcelReader : EditorWindow
             textTableFilePath = EditorPrefs.GetString(KeyTextTable, "");
 
         // 추가 필요
-        InitSO(ref _sceneInfoSO);
-        InitSO(ref _stageInfoSO);
-        InitSO(ref _enemyPoolInfoSO);
-        InitSO(ref _enemyDropPoolInfoSO);
-        InitSO(ref _spawnInfoSO);
-        InitSO(ref _enemyStatusInfoSO);
-        InitSO(ref _enemyAbilityInfoSO);
-        InitSO(ref _itemInfoSO);
-        InitSO(ref _teamLevelInfoSO);
-        InitSO(ref _playerStatusInfoSO);
-        InitSO(ref _playerAbilityInfoSO);
-        InitSO(ref _playerCardGradeInfoSO);
-        InitSO(ref _playerLevelInfoSO);
-        InitSO(ref _playerCardOptionPoolInfoSO);
-        InitSO(ref _playerCardOptionInfoSO);
-        InitSO(ref _passiveInfoSO);
-        InitSO(ref _passiveAbilityInfoSO);
-        InitSO(ref _shopInfoSO);
-        InitSO(ref _gachaInfoSO);
-        InitSO(ref _gachaPoolInfoSO);
-        InitSO(ref _textInfoSO);
-        InitSO(ref _etcInfoSO);
-        InitSO(ref _newContentInfoSO);
-        InitSO(ref _evolutionInfoSO);
-        InitSO(ref _disposableReinforceItemPoolInfoSO);
-        InitSO(ref _playerPieceInfoSO);
-        InitSO(ref _stageChestInfoSO);
+        //InitSO(ref _sceneInfoSO);
+        //InitSO(ref _stageInfoSO); 
         excelReader.Show();
     }
 
@@ -95,36 +44,12 @@ public class ExcelReader : EditorWindow
 
         readAllExcel = null;
         // 추가 필요
-        CreateReadExcelButton<SceneInfoSO, SceneInfo>(ref _sceneInfoSO, excelFilePath);
-        CreateReadExcelButton<StageInfoSO, StageInfo>(ref _stageInfoSO, excelFilePath);
-        CreateReadExcelButton<EnemyPoolInfoSO, EnemyPoolExcelInfo>(ref _enemyPoolInfoSO, excelFilePath);
-        CreateReadExcelButton<EnemyDropPoolInfoSO, EnemyDropPoolExcelInfo>(ref _enemyDropPoolInfoSO, excelFilePath);
-        CreateReadExcelButton<SpawnInfoSO, SpawnExcelInfo>(ref _spawnInfoSO, excelFilePath);
-        CreateReadExcelButton<EnemyStatusInfoSO, EnemyStatusInfo>(ref _enemyStatusInfoSO, excelFilePath);
-        CreateReadExcelButton<EnemyAbilityInfoSO, EnemyAbilityInfo>(ref _enemyAbilityInfoSO, excelFilePath);
-        CreateReadExcelButton<ItemInfoSO, ItemInfo>(ref _itemInfoSO, excelFilePath);
-        CreateReadExcelButton<TeamLevelInfoSO, TeamLevelInfo>(ref _teamLevelInfoSO, excelFilePath);
-        CreateReadExcelButton<PlayerStatusInfoSO, PlayerStatusInfo>(ref _playerStatusInfoSO, excelFilePath);
-        CreateReadExcelButton<PlayerAbilityInfoSO, PlayerAbilityInfo>(ref _playerAbilityInfoSO, excelFilePath);
-        CreateReadExcelButton<PlayerCardGradeInfoSO, PlayerCardGradeInfo>(ref _playerCardGradeInfoSO, excelFilePath);
-        CreateReadExcelButton<PlayerCardLevelInfoSO, PlayerCardLevelInfo>(ref _playerLevelInfoSO, excelFilePath);
-        CreateReadExcelButton<PlayerCardOptionPoolInfoSO, PlayerCardOptionPoolExcelInfo>(ref _playerCardOptionPoolInfoSO, excelFilePath);
-        CreateReadExcelButton<PlayerCardOptionInfoSO, PlayerCardOptionInfo>(ref _playerCardOptionInfoSO, excelFilePath);
-        CreateReadExcelButton<PassiveInfoSO, PassiveInfo>(ref _passiveInfoSO, excelFilePath);
-        CreateReadExcelButton<PassiveAbilityInfoSO, PassiveAbilityInfo>(ref _passiveAbilityInfoSO, excelFilePath);
-        CreateReadExcelButton<ShopInfoSO, ShopInfo>(ref _shopInfoSO, excelFilePath);
-        CreateReadExcelButton<GachaInfoSO, GachaInfo>(ref _gachaInfoSO, excelFilePath);
-        CreateReadExcelButton<GachaPoolInfoSO, GachaPoolExcelInfo>(ref _gachaPoolInfoSO, excelFilePath);
-        CreateReadExcelButton<EtcInfoSO, EtcInfo>(ref _etcInfoSO, excelFilePath);
-        CreateReadExcelButton<NewContentInfoSO, NewContentInfo>(ref _newContentInfoSO, excelFilePath);
-        CreateReadExcelButton<EvolutionInfoSO, EvolutionInfo>(ref _evolutionInfoSO, excelFilePath);
-        CreateReadExcelButton<DisposableReinforceItemPoolInfoSO, DisposableReinforceItemPoolInfo>(ref _disposableReinforceItemPoolInfoSO, excelFilePath);
-        CreateReadExcelButton<PlayerPieceInfoSO, PlayerPieceInfo>(ref _playerPieceInfoSO, excelFilePath);
-        CreateReadExcelButton<StageChestInfoSO, StageChestInfo>(ref _stageChestInfoSO, excelFilePath);
+        //CreateReadExcelButton<SceneInfoSO, SceneInfo>(ref _sceneInfoSO, excelFilePath);
+        //CreateReadExcelButton<StageInfoSO, StageInfo>(ref _stageInfoSO, excelFilePath); 
 
         GUILayout.Space(10);
         GUILayout.Label("텍스트 테이블");
-        CreateReadExcelButton<TextInfoSO, TextInfo>(ref _textInfoSO, textTableFilePath);
+        //CreateReadExcelButton<TextInfoSO, TextInfo>(ref _textInfoSO, textTableFilePath);
 
         if (GUILayout.Button("전체 읽어오기"))
         {

@@ -16,8 +16,8 @@ public abstract class BaseUI : MonoBehaviour
 
         transform.SetAsLastSibling();
 
-        showEase = GameResourcesManager.Instance.GetUIShowEase();
-        closeEase = GameResourcesManager.Instance.GetUICloseEase();
+        //showEase = GameResourcesManager.Instance.GetUIShowEase();
+        //closeEase = GameResourcesManager.Instance.GetUICloseEase();
 
         OnInitialize();
         isInit = true;

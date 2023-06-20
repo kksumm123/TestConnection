@@ -1,5 +1,4 @@
-﻿using BayatGames.SaveGameFree;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -11,7 +10,6 @@ public class WoonyEditor : Editor
     [MenuItem("WoonyEditor/SaveGame/Initialize", priority = 0)]
     public static void Initialize()
     {
-        SaveGame.DeleteAll();
         PlayerPrefs.DeleteAll();
         Debug.Log("게임 세이브데이터 초기화 완료");
         //EditorUtility.DisplayDialog("초기화 완료", "게임 세이브데이터 초기화 완료", "닫기");

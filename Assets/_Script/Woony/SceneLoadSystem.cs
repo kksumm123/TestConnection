@@ -5,28 +5,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+public enum LoadSceneType
+{
+    None, MoveToStage, LoadNewWorld,
+}
+
 public static class SceneLoadSystem
 {
     static AsyncOperation process;
     static bool isAbleToLoadScene = true;
-    public static string currentScene; 
+    public static string currentScene;
 
     static void ReleaseDontDestroyOnLoad(LoadSceneType loadSceneType)
     {
         switch (loadSceneType)
         {
+            case LoadSceneType.None:
+                break;
+            case LoadSceneType.MoveToStage:
+                break;
             case LoadSceneType.LoadNewWorld:
-                DontDestroyOnLoadSystem.DestroyAll();
                 break;
         }
     }
 
     static void OnUnloadScene()
     {
-        FactoryObjectCollector.OnUnloadScene();
-        AttackObjectCollector.RestoreObjects();
-        GameManager.Instance.MainCamera.SetParent(GameManager.Instance.transform);
-        Tutorial.TutorialManager.Instance.OnUnloadScene();
     }
 
     static void OnLoadedSceneEvent(Scene scene, LoadSceneMode mode)
@@ -34,7 +38,6 @@ public static class SceneLoadSystem
         SceneManager.sceneLoaded -= OnLoadedSceneEvent;
         SceneManager.SetActiveScene(scene);
         isAbleToLoadScene = true;
-        //WorldManager.Instance.OnLoadedScene();
     }
 
     /// <summary>
@@ -53,8 +56,6 @@ public static class SceneLoadSystem
 
         if (IsNeedToUnloadScene())
         {
-            yield return DefaultUIManager.Instance.LoadingUI.Close()
-                                         .WaitForCompletion();
             OnUnloadScene();
             process = SceneManager.UnloadSceneAsync(currentScene);
             yield return new WaitUntil(() => process.isDone);
@@ -62,22 +63,17 @@ public static class SceneLoadSystem
         SceneManager.sceneLoaded += OnLoadedSceneEvent;
         process = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
         yield return new WaitUntil(() => process.isDone);
-        yield return DefaultUIManager.Instance.LoadingUI.Show()
-                                     .WaitForCompletion();
         currentScene = sceneName;
-
         process.allowSceneActivation = true;
 
-        bool IsNeedToUnloadScene()
-        {
-            return currentScene != null
-                   && (currentScene != string.Empty
-                       || currentScene != "");
-        }
+        bool IsNeedToUnloadScene() =>
+            currentScene != null
+            && (currentScene != string.Empty
+            || currentScene != "");
     }
 
     public static void LoadScene(string sceneName, LoadSceneType loadSceneType)
     {
-        GameManager.Instance.StartCoroutine(AsyncLoadScene(sceneName, loadSceneType));
+        // GameManager.Instance.StartCoroutine(AsyncLoadScene(sceneName, loadSceneType));
     }
 }
